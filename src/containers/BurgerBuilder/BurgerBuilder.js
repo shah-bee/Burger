@@ -5,7 +5,7 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
-const INGREDIENTS_PRICE = { salad: 1.20, meat: 1.30, bacon:2.3, cheese: 3.4 }
+const INGREDIENTS_PRICE = { salad: 1.20, meat: 1.30, bacon: 2.3, cheese: 3.4 }
 
 class BurgerBuilder extends Component {
     // constructor(props) {
@@ -14,36 +14,37 @@ class BurgerBuilder extends Component {
 
     state = {
         ingredients: {
-            salad:0,
-            cheese:0,
-            bacon:0,
-            meat:0
+            salad: 0,
+            cheese: 0,
+            bacon: 0,
+            meat: 0
         },
         totalPrice: 4,
-        canPlaceOrder: false
+        canPlaceOrder: false,
+        purchasing: false
     }
 
-    updatePurchaseState(ingredients){
-        const selectedIngredientCount = Object.keys(ingredients).map( igKey =>{
+    updatePurchaseState(ingredients) {
+        const selectedIngredientCount = Object.keys(ingredients).map(igKey => {
             return ingredients[igKey];
         }).reduce((sum, curr) => {
             return sum + curr;
         }, 0);
-         this.setState({
+        this.setState({
             canPlaceOrder: selectedIngredientCount > 0
-         });
+        });
     }
 
-    addIngredient =(type) => {
+    addIngredient = (type) => {
         const prevCount = this.state.ingredients[type];
         const currCount = prevCount + 1;
-        const updatedIngredients = {...this.state.ingredients};
+        const updatedIngredients = { ...this.state.ingredients };
         updatedIngredients[type] = currCount;
 
         const finalPriceAfterAddingIngredient = this.state.totalPrice + INGREDIENTS_PRICE[type];
 
         this.setState({
-            ingredients : updatedIngredients,
+            ingredients: updatedIngredients,
             totalPrice: finalPriceAfterAddingIngredient
         });
 
@@ -51,36 +52,45 @@ class BurgerBuilder extends Component {
     }
 
     removeIngredient = (type) => {
-        if(this.state.ingredients[type] === 0){
+        if (this.state.ingredients[type] === 0) {
             return;
         }
         const prevCount = this.state.ingredients[type];
         const currCount = prevCount - 1;
-        const updatedIngredients = {...this.state.ingredients};
+        const updatedIngredients = { ...this.state.ingredients };
         updatedIngredients[type] = currCount;
         const finalPriceAfterAddingIngredient = this.state.totalPrice - INGREDIENTS_PRICE[type];
         this.setState({
-            ingredients : updatedIngredients,
+            ingredients: updatedIngredients,
             totalPrice: finalPriceAfterAddingIngredient
         });
         this.updatePurchaseState(updatedIngredients);
     }
 
+    purchaseHandler = () => {
+        this.setState({
+            purchasing: true
+        })
+    }
+
     render() {
-        const disabledInfo = {...this.state.ingredients};
-        for(let key in disabledInfo){
+        const disabledInfo = { ...this.state.ingredients };
+        for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
-                    
+
         return (
             <Aux>
-                <Modal>
+                <Modal showModal={this.state.purchasing}>
                     <OrderSummary ingredients={this.state.ingredients}></OrderSummary>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}></Burger>
-                <BuildControls addIngredient={this.addIngredient} 
-                removeIngredient={this.removeIngredient} disabledInfo={disabledInfo}
-                totalPrice={this.state.totalPrice} placeOrder={this.state.canPlaceOrder}></BuildControls>
+                <BuildControls addIngredient={this.addIngredient}
+                    removeIngredient={this.removeIngredient} disabledInfo={disabledInfo}
+                    totalPrice={this.state.totalPrice}
+                    placeOrder={this.state.canPlaceOrder}
+                    OrderSummary={() => this.purchaseHandler()}
+                    ></BuildControls>
             </Aux>
         );
     }
