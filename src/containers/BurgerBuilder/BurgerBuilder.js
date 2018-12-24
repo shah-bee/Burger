@@ -93,9 +93,9 @@ class BurgerBuilder extends Component {
             <Aux>
                 <Modal show={this.state.purchasing} cancel={this.cancelPurchaseHandler}>
                     <OrderSummary ingredients={this.state.ingredients}
-                    cancel={this.cancelPurchaseHandler}
-                    continue={this.continuePurchaseHandler}
-                    totalPrice={this.state.totalPrice}
+                        cancel={this.cancelPurchaseHandler}
+                        continue={this.continuePurchaseHandler}
+                        totalPrice={this.state.totalPrice}
                     ></OrderSummary>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}></Burger>
@@ -104,8 +104,7 @@ class BurgerBuilder extends Component {
                     totalPrice={this.state.totalPrice}
                     placeOrder={this.state.canPlaceOrder}
                     OrderSummary={this.purchaseHandler}
-                    
-                    ></BuildControls>
+                ></BuildControls>
             </Aux>
         );
     }
