@@ -4,6 +4,9 @@
     background-color: rgb(139, 76, 76);
     flex-flow: column;
     align-items: center;
+    margin:auto;
+    padding:10px 0px;
+    box-sizing: border-box;
 }
 
 
