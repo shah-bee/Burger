@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Button.css';
-import Aux from '../../../hoc/Taher';
+import Aux from '../../../hoc/Auxilary/Taher';
 const button = (props) => {
     return (
         <Aux>

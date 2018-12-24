@@ -1,5 +1,5 @@
 import React from 'react';
-import Aux from '../../../hoc/Taher';
+import Aux from '../../../hoc/Auxilary/Taher';
 import Button from '../../UI/Button/Button';
 
 const orderSummary = (props) => {

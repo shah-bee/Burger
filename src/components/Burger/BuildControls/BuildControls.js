@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './BuildControls.css';
 import BuildControl from '../BuildControl/BuildControl';
-import Aux from '../../../hoc/Taher';
+import Aux from '../../../hoc/Auxilary/Taher';
 const buildControls = (props) => {
     const buildControls = [
         { label: 'Cheese', type: 'cheese' },
