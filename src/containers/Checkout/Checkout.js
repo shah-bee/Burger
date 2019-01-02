@@ -11,18 +11,9 @@ class Checkout extends Component {
         }
     }
 
-    cancelCheckoutHandler =() => {
-        this.props.history.goBack();
-    }
-    continueCheckoutHandler = () => {
-        this.props.history.push('/burger/contact-data');
-    }
     render(){
         return(
-            <CheckoutSummary ingredients={this.state.ingredients}
-            cancel={this.cancelCheckoutHandler}
-            continue={this.continueCheckoutHandler}
-            ></CheckoutSummary>
+            <CheckoutSummary ingredients={this.state.ingredients}></CheckoutSummary>
         )
     }
 }
