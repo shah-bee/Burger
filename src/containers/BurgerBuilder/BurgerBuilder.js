@@ -13,11 +13,16 @@ import { connect } from 'react-redux';
 import * as actionCreator from '../../store/actions/index';
 
 
-
-
 class BurgerBuilder extends Component {
     
     state = {
+        ingredients: {
+            salad: 0,
+            cheese: 0,
+            bacon: 0,
+            meat: 0
+        },
+        totalPrice: 4,
         canPlaceOrder: false,
         purchasing: false,
         loading: false
@@ -45,18 +50,7 @@ class BurgerBuilder extends Component {
         });
     }
 
-    componentDidUpdate() {
-        console.log(this.props, "Burger builder did update");
-    }
-
     continuePurchaseHandler = () => {
-        this.props.history.push('/burger/checkout');
-        this.setState({
-            loading: false,
-            purchasing: false
-        });
-        return;
-
         this.setState({
             loading: true
         });
@@ -81,12 +75,12 @@ class BurgerBuilder extends Component {
     }
 
     render() {
-        const disabledInfo = { ...this.props.ingredients };
+        const disabledInfo = { ...this.state.ingredients };
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
 
-        let order = <OrderSummary ingredients={this.props.ingredients} {...this.props}
+        let order = <OrderSummary ingredients={this.state.ingredients}
             cancel={this.cancelPurchaseHandler}
             continue={this.continuePurchaseHandler}
             totalPrice={this.props.price}
@@ -95,7 +89,7 @@ class BurgerBuilder extends Component {
             order = <Spinner></Spinner>
         }
 
-        let burger = (
+        return (
             <Aux>
                 <Burger ingredients={this.props.ingredients}></Burger>
                 <BuildControls addIngredient={(value) => this.props.onAddIngredient(value)}
@@ -104,22 +98,14 @@ class BurgerBuilder extends Component {
                     placeOrder={this.updatePurchaseState(this.props.ingredients)}
                     OrderSummary={this.purchaseHandler}
                 ></BuildControls>
-            </Aux>
-        );
-        if (!this.props.ingredients) {
-            burger = <Spinner></Spinner>
-        }
-
-        return (
-            <Aux>
                 <Modal show={this.state.purchasing} cancel={this.cancelPurchaseHandler}>
-                    {this.props.ingredients ? order : null}
+                    {order}
                 </Modal>
-                {burger}
             </Aux>
         );
     }
 }
+    
 
 const mapStateToProps = state => {
     return {
