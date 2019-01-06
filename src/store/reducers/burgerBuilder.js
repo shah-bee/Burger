@@ -1,5 +1,7 @@
-import * as actionTypes from './actions';
-import AxiosOrder from '../axios-order';
+import * as actionTypes from '../actions/actionTypes';
+import AxiosOrder from '../../axios-order';
+
+const INGREDIENTS_PRICE = { salad: 1.20, meat: 1.30, bacon: 2.3, cheese: 3.4 }
 
 const loadIngredients = function () {
     AxiosOrder.get('https://real-time-burger.firebaseio.com/ingredients.json')
@@ -18,15 +20,17 @@ const initialState = {
     totalPrice: 4
 }
 
-const burgerReducer = (state = initialState, action) => {
+const burgerBuilder = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ADD_INGREDIENT:
             return {
                 ...state,
                 ingredients: {
                     ...state.ingredients,
-                    [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-                }
+                    [action.ingredientName]: state.ingredients[action.ingredientName] + 1,
+                    
+                },
+                totalPrice: state.totalPrice + INGREDIENTS_PRICE[action.ingredientName]
             }
         case actionTypes.REMOVE_INGREDIENT:
         return {
@@ -40,4 +44,4 @@ const burgerReducer = (state = initialState, action) => {
     return state;
 }
 
-export default burgerReducer;
+export default burgerBuilder;

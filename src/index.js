@@ -5,12 +5,12 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';
 import { createStore, combineReducers } from 'redux';
-import burgerReducer from './store/burgerReducer';
+import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import { Provider } from 'react-redux';
 
-const reducer = combineReducers({burgerReducer});
+const reducer = combineReducers({ burgerBuilderReducer });
 
-const burgerStore = createStore(burgerReducer);
+const burgerStore = createStore(burgerBuilderReducer);
 
 const app = (<BrowserRouter>
     <Provider store={burgerStore}>
