@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore, combineReducers } from 'redux';
+import {BrowserRouter} from 'react-router-dom';
 import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import { Provider } from 'react-redux';
 
