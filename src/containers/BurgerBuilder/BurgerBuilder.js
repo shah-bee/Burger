@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Aux from '../../hoc/Auxilary/Taher';
+
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
@@ -16,13 +17,8 @@ import * as actionCreator from '../../store/actions/index';
 class BurgerBuilder extends Component {
     
     state = {
-        ingredients: {
-            salad: 0,
-            cheese: 0,
-            bacon: 0,
-            meat: 0
-        },
-        totalPrice: 4,
+        ingredients: null,
+                    totalPrice: 4,
         canPlaceOrder: false,
         purchasing: false,
         loading: false
