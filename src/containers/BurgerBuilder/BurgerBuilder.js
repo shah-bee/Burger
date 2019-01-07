@@ -55,7 +55,7 @@ class BurgerBuilder extends Component {
             loading: true
         });
         let order = {
-            Ingredients: this.state.ingredients,
+            Ingredients: this.props.ingredients,
             Price: this.props.price,
             Customer: {
                 Name: "Mohammed Shah",
@@ -75,12 +75,12 @@ class BurgerBuilder extends Component {
     }
 
     render() {
-        const disabledInfo = { ...this.state.ingredients };
+        const disabledInfo = { ...this.props.ingredients };
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
 
-        let order = <OrderSummary ingredients={this.state.ingredients}
+        let order = <OrderSummary ingredients={this.props.ingredients}
             cancel={this.cancelPurchaseHandler}
             continue={this.continuePurchaseHandler}
             totalPrice={this.props.price}
