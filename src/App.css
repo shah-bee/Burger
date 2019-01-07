@@ -4,7 +4,11 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
+<<<<<<< HEAD
   height: 46vmin;
+=======
+  height: 42vmin;
+>>>>>>> origin/master
 }
 
 .App-header {
